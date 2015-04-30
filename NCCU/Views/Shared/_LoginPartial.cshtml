@@ -1,0 +1,43 @@
+﻿@*@if (Request.IsAuthenticated) {
+    <text>
+        您好，@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "管理" })!
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">登出</a>
+        }
+    </text>
+} else {
+    <ul>
+        <li>@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}*@
+
+<!-- nabar right -->
+<ul class="nav navbar-nav navbar-right">
+    @if (Request.IsAuthenticated) {
+        <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
+            <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+            <img src="img/a0.jpg" alt="...">
+            <i class="on md b-white bottom"></i>
+            </span>
+            <span class="hidden-sm hidden-md">@User.Identity.Name</span> <b class="caret"></b>
+        </a>
+        <!-- dropdown -->
+        <ul class="dropdown-menu animated fadeInRight w">
+              
+            <li>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                @Html.AntiForgeryToken()
+                <a href="javascript:document.getElementById('logoutForm').submit()">登出</a>
+            }
+            </li>
+        </ul>
+        <!-- / dropdown -->
+        </li>
+    } else {
+        <li>@Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    }
+</ul>
+<!-- / navbar right -->
